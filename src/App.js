@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Chart from './component/Chart'; 
+import Navigation from './component/Navigation';
+import Home from './Pages/Home';
 
 function App() {
+  const [symbol, setSymbol] = useState(''); 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navigation setSymbol={setSymbol} /> {/* Pass setSymbol to Navigation */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chart" element={symbol && <Chart symbol={symbol} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
